@@ -63,14 +63,18 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-full h-[50vh] mx-auto p-5 bg-black rounded-lg flex flex-col gap-2">
-        <div className=" inline-flex items-center gap-1 text-xl text-white mb-5">
-          <div className="relative w-8 h-8">
-            <Image src={opBnbLogo} fill className="object-contain" alt="logo" />
+    <div className="min-h-screen">
+      <h1 className="text-4xl font-semibold mb-4 text-white ml-4">Overview</h1>
+      <div className="w-full h-[50vh] mx-auto p-5 bg-black rounded-2xl flex flex-col lg:flex-row gap-2">
+        <div className=" flex lg:flex-col gap-5 text-xl text-white mb-5 lg:w-1/5 lg:pt-5">
+          <div className="inline-flex gap-2">
+            <div className="relative w-8 h-8">
+              <Image src={opBnbLogo} fill className="object-contain" alt="logo" />
+            </div>
+            <span className=" font-semibold">opBNB</span>
           </div>
-          <span className=" font-semibold">opBNB</span>: Total Value Locked
-          <h2 className="text-lg text-white ml-auto">Current TVL: {latestTvl ? latestTvl : "Loading..."}</h2>
+          <h3 className="text-lg text-white lg:mt-5">Total Value Locked</h3>
+          <h2 className="text-3xl font-semibold">{latestTvl ? latestTvl : "Loading..."}</h2>
         </div>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={formattedData} margin={{ right: 10, left: 10 }}>

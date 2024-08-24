@@ -20,33 +20,40 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CSSObject, styled, Theme } from "@mui/material/styles";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SideNavItem {
   icon: JSX.Element;
   label: string;
+  link: string;
 }
 
 const sideNav: SideNavItem[] = [
   {
     icon: <HomeIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Home",
+    link: "/",
   },
   {
     icon: <BarChartIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Statistics",
+    link: "/stats",
   },
   {
     icon: <WidgetsIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Dapps",
+    link: "/dapps",
   },
   {
     icon: <ChecklistIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Compare L2s",
+    link: "/compare",
   },
   {
     icon: <SchoolIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Learn",
+    link: "/learn",
   },
 ];
 
@@ -94,6 +101,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 export default function PageContainer({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
 
+  const router = useRouter();
+
   const handleDrawer = () => {
     setOpen(!open);
   };
@@ -120,6 +129,7 @@ export default function PageContainer({ children }: { children: React.ReactNode 
           {sideNav.map((item, index) => (
             <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
+                onClick={() => router.push(item.link)}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",

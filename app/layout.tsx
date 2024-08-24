@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto_Condensed } from "next/font/google";
-import Navbar from "../components/Navbar";
+import PageContainer from "../components/Navbar";
 import "./globals.css";
 
 const font = Roboto_Condensed({
@@ -21,10 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} min-h-screen`}>
-        <header>
-          <Navbar />
-        </header>
-        <main className="pt-20 lg:px-40 bg-[#17181c]">{children}</main>
+        <PageContainer>
+          <main className="pt-10 lg:px-10 w-full bg-[#333333]">{children}</main>
+        </PageContainer>
       </body>
     </html>
   );

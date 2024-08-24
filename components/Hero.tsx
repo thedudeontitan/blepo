@@ -64,16 +64,16 @@ export default function Hero() {
 
   return (
     <div className="flex min-h-screen">
-      <div className="w-full h-[50vh] mx-auto p-5 bg-[#17181c] rounded shadow-md flex flex-col gap-2">
-        <div className=" inline-flex items-center gap-1 text-xl text-white">
+      <div className="w-full h-[50vh] mx-auto p-5 bg-black rounded-lg flex flex-col gap-2">
+        <div className=" inline-flex items-center gap-1 text-xl text-white mb-5">
           <div className="relative w-8 h-8">
             <Image src={opBnbLogo} fill className="object-contain" alt="logo" />
           </div>
           <span className=" font-semibold">opBNB</span>: Total Value Locked
+          <h2 className="text-lg text-white ml-auto">Current TVL: {latestTvl ? latestTvl : "Loading..."}</h2>
         </div>
-        <h2 className="text-sm text-white">Current TVL: {latestTvl ? latestTvl : "Loading..."}</h2>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={formattedData} margin={{ right: 10, left: 10, bottom: 0 }}>
+          <AreaChart data={formattedData} margin={{ right: 10, left: 10 }}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />

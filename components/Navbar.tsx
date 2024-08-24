@@ -1,60 +1,21 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navbar() {
-  const [scroll, setScroll] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = usePathname();
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScroll(true);
-      } else {
-        setScroll(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
-  useEffect
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      <div
-        className={`flex flex-row py-6 px-10 justify-between items-center font-poppinsRegular ${
-          location === "/"
-            ? scroll
-              ? "bg-white text-black"
-              : "text-white bg-transparent"
-            : "text-black bg-white"
-        }`}
-      >
+      <div className={`flex flex-row py-6 px-10 justify-between items-center font-poppinsRegular bg-white`}>
         <Link href="/" className="flex flex-row gap-4 text-xl items-center">
           <div className="relative">
-            <Image
-              src={
-                  location === "/"
-                    ? scroll
-                      ? "/images/logo.png"
-                      : "/images/logo_white.png"
-                    : "/images/logo.png"
-                }
-                width={40}
-                height={40}
-              alt="logo"
-            />
+            <Image src="/images/logo.png" width={40} height={40} alt="logo" />
           </div>
           blepo
         </Link>
@@ -75,21 +36,11 @@ export default function Navbar() {
         </div>
       </div>
       {menuOpen && (
-        <div
-          className={`lg:hidden flex flex-col items-center text-black py-4 font-bold`}
-        >
-          <Link
-            href="https://github.com/thedudeontitan/blepo"
-            target="_blank"
-            className="py-2"
-          >
+        <div className={`lg:hidden flex flex-col items-center text-black py-4 font-bold`}>
+          <Link href="https://github.com/thedudeontitan/blepo" target="_blank" className="py-2">
             Github
           </Link>
-          <Link
-            href="https://github.com/thedudeontitan/blepo"
-            target="_blank"
-            className="py-2"
-          >
+          <Link href="https://github.com/thedudeontitan/blepo" target="_blank" className="py-2">
             Documentation
           </Link>
           <Link href="#features" className="py-2">

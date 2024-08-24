@@ -1,6 +1,6 @@
 "use client";
 import opBnbLogo from "@/public/images/op_bnb.svg";
-import { getMonthAbbreviation } from "@/utils/MonthFormatter";
+import { getMonthAbbreviation } from "@/src/utils/MonthFormatter";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";

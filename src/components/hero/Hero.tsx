@@ -1,9 +1,12 @@
 "use client";
 import opBnbLogo from "@/public/images/op_bnb.svg";
 import { getMonthAbbreviation } from "@/src/utils/MonthFormatter";
+import { Box } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { columns, rows, type Row } from "./colums";
 
 interface DataItem {
   date: number;
@@ -13,6 +16,9 @@ interface DataItem {
 export default function Hero() {
   const [latestTvl, setLatestTvl] = useState<string | null>(null);
   const [tvlData, setTvlData] = useState<DataItem[]>([]);
+  const [formattedRow, setFormattedRow] = useState<Row[]>([]);
+  const [addressCount, setAddressCount] = useState({ opBNB: 0, Combo: 0, Xterio: 0 });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +30,18 @@ export default function Hero() {
       }
     };
 
+    const fetchAddressCount = async () => {
+      try {
+        const res = await fetch("/api/addressCount");
+        const result = await res.json();
+        setAddressCount(result);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+
     fetchData();
+    fetchAddressCount();
   }, []);
 
   function getLatestEntry(data: DataItem[]) {
@@ -62,8 +79,28 @@ export default function Hero() {
     return formatedDate;
   };
 
+  const formatRow = (row: Row[]) => {
+    if (latestTvl) {
+      return row.map((item) => {
+        item.name === "opBNB" ? (item.tvl = latestTvl) : (item.tvl = "Coming soon");
+        item.name === "opBNB"
+          ? (item.active_address = addressCount.opBNB)
+          : item.name === "Combo"
+            ? (item.active_address = addressCount.Combo)
+            : item.name === "Xterio"
+              ? (item.active_address = addressCount.Xterio)
+              : (item.active_address = 0);
+        return item;
+      });
+    }
+  };
+
+  useEffect(() => {
+    const formatedRows = formatRow(rows);
+    setFormattedRow(formatedRows || []);
+  }, [latestTvl]);
   return (
-    <div className="min-h-screen">
+    <div className="">
       <h1 className="text-4xl font-semibold mb-4 text-white ml-4">Overview</h1>
       <div className="w-full h-[50vh] mx-auto p-5 bg-black rounded-2xl flex flex-col lg:flex-row gap-2">
         <div className=" flex lg:flex-col gap-5 text-xl text-white mb-5 lg:w-1/5 lg:pt-5">
@@ -91,6 +128,34 @@ export default function Hero() {
             <Area type="monotone" dataKey="tvl" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" dot={false} />
           </AreaChart>
         </ResponsiveContainer>
+      </div>
+      <div className="w-full mt-10 pb-20 text-white">
+        <Box sx={{}}>
+          <DataGrid
+            sx={{
+              borderRadius: "10px",
+              overflow: "hidden",
+              backgroundColor: "black",
+              color: "white",
+              "& .MuiDataGrid-sortIcon": {
+                opacity: 1,
+                color: "white",
+              },
+              "& .MuiDataGrid-menuIconButton": {
+                opacity: 1,
+                color: "white",
+              },
+              border: 0,
+              padding: 2,
+              fontSize: "1.2rem",
+              fontFamily: "inherit",
+            }}
+            rowHeight={70}
+            rows={formattedRow}
+            columns={columns}
+            hideFooter
+          />
+        </Box>
       </div>
     </div>
   );

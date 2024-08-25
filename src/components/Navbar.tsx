@@ -156,7 +156,15 @@ export default function PageContainer({ children }: { children: React.ReactNode 
           ))}
         </List>
       </Drawer>
-      <div className="w-full"> {children}</div>
+      <div className="w-full">
+        <Box
+          sx={{
+            maxWidth: open === true ? `calc(100vw - 240px - 1rem)` : `calc(100vw - 1rem)`,
+          }}
+        >
+          {children}
+        </Box>
+      </div>
     </Box>
   );
 }

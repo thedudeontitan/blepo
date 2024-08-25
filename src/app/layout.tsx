@@ -3,7 +3,7 @@ import { Roboto_Condensed } from "next/font/google";
 import PageContainer from "../components/Navbar";
 import "./globals.css";
 
-const font = Roboto_Condensed({
+const robotoCondensed = Roboto_Condensed({
   subsets: ["latin"],
   weight: "400",
 });
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} min-h-screen`}>
+      <body className={`${robotoCondensed.className} min-h-screen`}>
         <PageContainer>
           <main className="pt-10 lg:px-10 w-full bg-[#333333]">{children}</main>
         </PageContainer>

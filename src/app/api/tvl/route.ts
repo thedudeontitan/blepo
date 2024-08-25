@@ -6,7 +6,6 @@ export async function GET() {
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
-    console.log(data);
     return NextResponse.json({ data });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });

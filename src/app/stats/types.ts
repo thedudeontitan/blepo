@@ -42,6 +42,6 @@ export interface KpiData {
   avg_block_size: string;
   active_accounts: string;
   average_gas_price: string;
-  contract_create_transfer_count: string;
+  daily_deployed_contract: string;
   tps_per_day: string;
 }

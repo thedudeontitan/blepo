@@ -49,7 +49,7 @@ export default function Combo() {
         avg_block_size: latestData.avg_block_size,
         active_accounts: latestData.active_accounts,
         average_gas_price: latestData.average_gas_price,
-        contract_create_transfer_count: latestData.contract_create_transfer_count,
+        daily_deployed_contract: latestData.contract_create_transfer_count,
         tps_per_day: latestData.tps_per_day,
       };
       setKpiData(kpi);

@@ -9,16 +9,19 @@ import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { KpiData, TransferDayCount } from "./types";
 
-export default function page() {
+export default function OpBnb() {
   const [statsData, setStatsData] = useState<TransferDayCount[]>([]);
   const [kpiData, setKpiData] = useState<KpiData | null>(null);
   const [tvlData, setTvlData] = useState<TvlDataItem[]>([]);
+  const [formattedData, setFormattedData] = useState<TransferDayCount[]>([]);
 
-  const formattedData = statsData.map((item) => ({
-    ...item,
-    average_gas_price: ScientificToInt(item.average_gas_price),
-  }));
-
+  useEffect(() => {
+    const data = statsData.map((item) => ({
+      ...item,
+      average_gas_price: ScientificToInt(item.average_gas_price),
+    }));
+    setFormattedData(data);
+  }, [statsData]);
   const formatNumber = (num: number): string => {
     return numeral(num).format("0.0a");
   };
@@ -66,12 +69,12 @@ export default function page() {
       };
       setKpiData(kpi);
     }
-  }, [statsData]);
+  }, [formattedData]);
 
   const Chart = ({ dataKey, title }: { dataKey: string; title: string }) => {
     const maxValue = useMemo(() => {
       return Math.max(...formattedData.map((item: any) => item[dataKey] || 0));
-    }, [formattedData, dataKey]);
+    }, [dataKey]);
 
     return (
       <div className="flex flex-col w-full bg-primary p-5 rounded-2xl">
@@ -113,7 +116,9 @@ export default function page() {
       <h1 className="text-3xl font-semibold text-white mb-4">OpBnb Stats</h1>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {kpiData &&
-          Object.entries(kpiData).map(([key, value]) => <KpiCard label={key.split("_").join(" ")} value={value} />)}
+          Object.entries(kpiData).map(([key, value]) => (
+            <KpiCard key={key} label={key.split("_").join(" ")} value={value} />
+          ))}
       </div>
 
       <div className="flex flex-row w-full h-[45vh] mt-4 gap-4">

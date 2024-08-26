@@ -67,26 +67,26 @@ export default function Hero() {
     getLatestEntry(tvlData);
   }, [tvlData]);
 
-  const formatRow = (row: Row[]) => {
-    if (latestTvl) {
-      return row.map((item) => {
-        item.name === "opBNB" ? (item.tvl = latestTvl) : (item.tvl = "Coming soon");
-        item.name === "opBNB"
-          ? (item.active_address = addressCount.opBNB)
-          : item.name === "Combo"
-            ? (item.active_address = addressCount.Combo)
-            : item.name === "Xterio"
-              ? (item.active_address = addressCount.Xterio)
-              : (item.active_address = 0);
-        return item;
-      });
-    }
-  };
-
   useEffect(() => {
+    const formatRow = (row: Row[]) => {
+      if (latestTvl) {
+        return row.map((item) => {
+          item.name === "opBNB" ? (item.tvl = latestTvl) : (item.tvl = "Coming soon");
+          item.name === "opBNB"
+            ? (item.active_address = addressCount.opBNB)
+            : item.name === "Combo"
+              ? (item.active_address = addressCount.Combo)
+              : item.name === "Xterio"
+                ? (item.active_address = addressCount.Xterio)
+                : (item.active_address = 0);
+          return item;
+        });
+      }
+    };
+
     const formatedRows = formatRow(rows);
     setFormattedRow(formatedRows || []);
-  }, [latestTvl]);
+  }, [addressCount, latestTvl]);
   return (
     <div className="">
       <h1 className="text-4xl font-semibold mb-4 text-white ml-4">Overview</h1>

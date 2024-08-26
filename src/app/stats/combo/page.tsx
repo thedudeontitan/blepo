@@ -1,6 +1,5 @@
 "use client";
 
-import type { TvlDataItem } from "@/src/components/hero/Hero";
 import { KpiCard } from "@/src/components/KpiCard";
 import { ScientificToInt } from "@/src/utils/ScientificToInt";
 import { formatXAxis } from "@/src/utils/XAxisFormater";
@@ -10,10 +9,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { KpiData, TransferDayCount } from "../types";
 
-export default function OpBnb() {
+export default function Combo() {
   const [statsData, setStatsData] = useState<TransferDayCount[]>([]);
   const [kpiData, setKpiData] = useState<KpiData | null>(null);
-  const [tvlData, setTvlData] = useState<TvlDataItem[]>([]);
   const [formattedData, setFormattedData] = useState<TransferDayCount[]>([]);
 
   useEffect(() => {
@@ -30,21 +28,7 @@ export default function OpBnb() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/tvl");
-        const result = await res.json();
-        setTvlData(result.data);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/opBnbStats");
+        const res = await fetch("/api/comboStats");
         const result = await res.json();
         setStatsData(result.transferDayCount);
       } catch (error) {
@@ -115,8 +99,8 @@ export default function OpBnb() {
   return (
     <div className="min-h-screen pb-20">
       <div className="inline-flex gap-4 items-center mb-4">
-        <Image src="/images/op_bnb.svg" width={50} height={50} alt="logo" />
-        <h1 className="text-3xl font-semibold text-white">OpBnb Stats</h1>
+        <Image src="/images/combo.png" width={50} height={50} alt="logo" />
+        <h1 className="text-3xl font-semibold text-white">Combo Stats</h1>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -129,26 +113,6 @@ export default function OpBnb() {
       <div className="flex flex-row w-full h-[45vh] mt-4 gap-4">
         <Chart dataKey="count" title="Daily Transaction Count" />
         <Chart dataKey="active_accounts" title="Daily Active Accounts" />
-      </div>
-      <div className="flex flex-row w-full h-[45vh] mt-4 gap-4">
-        <div className="flex flex-col w-full bg-primary p-5 rounded-2xl">
-          <h2 className="text-white text-xl font-semibold mb-4">Total Value Locked</h2>
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={tvlData} margin={{ right: 10, left: 10 }}>
-              <defs>
-                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                  <stop offset="60%" stopColor="#8884d8" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="1 3" stroke="#404040" />
-              <XAxis dataKey="date" tickFormatter={formatXAxis} fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
-              <YAxis fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
-              <Tooltip itemStyle={{ color: "#000000" }} />
-              <Area type="monotone" dataKey="tvl" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" dot={false} />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
       </div>
       <div className="flex flex-row w-full h-[45vh] mt-4 gap-4">
         <Chart dataKey="tps_per_day" title="Daily TPS" />

@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${robotoCondensed.className} min-h-screen`}>
         <PageContainer>
-          <main className="pt-10 lg:px-10 w-full bg-[#333333]">{children}</main>
+          <main className="pt-10 lg:px-10 w-full bg-black">{children}</main>
         </PageContainer>
       </body>
     </html>

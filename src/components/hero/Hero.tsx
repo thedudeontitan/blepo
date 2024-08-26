@@ -102,7 +102,7 @@ export default function Hero() {
   return (
     <div className="">
       <h1 className="text-4xl font-semibold mb-4 text-white ml-4">Overview</h1>
-      <div className="w-full h-[50vh] mx-auto p-5 bg-black rounded-2xl flex flex-col lg:flex-row gap-2">
+      <div className="w-full h-[50vh] mx-auto p-5 bg-primary rounded-2xl flex flex-col lg:flex-row gap-2">
         <div className=" flex lg:flex-col gap-5 text-xl text-white mb-5 lg:w-1/5 lg:pt-5">
           <div className="inline-flex gap-2">
             <div className="relative w-8 h-8">
@@ -135,7 +135,7 @@ export default function Hero() {
             sx={{
               borderRadius: "10px",
               overflow: "hidden",
-              backgroundColor: "black",
+              backgroundColor: "#141414",
               color: "white",
               "& .MuiDataGrid-sortIcon": {
                 opacity: 1,

@@ -27,6 +27,9 @@ const config: Config = {
           },
         },
       },
+      colors: {
+        primary: "#141414",
+      },
     },
   },
   plugins: [],

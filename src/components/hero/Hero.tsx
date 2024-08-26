@@ -1,6 +1,6 @@
 "use client";
 import opBnbLogo from "@/public/images/op_bnb.svg";
-import { getMonthAbbreviation } from "@/src/utils/MonthFormatter";
+import { formatXAxis } from "@/src/utils/XAxisFormater";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Image from "next/image";
@@ -8,14 +8,14 @@ import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { columns, rows, type Row } from "./colums";
 
-interface DataItem {
+export interface TvlDataItem {
   date: number;
   tvl: number;
 }
 
 export default function Hero() {
   const [latestTvl, setLatestTvl] = useState<string | null>(null);
-  const [tvlData, setTvlData] = useState<DataItem[]>([]);
+  const [tvlData, setTvlData] = useState<TvlDataItem[]>([]);
   const [formattedRow, setFormattedRow] = useState<Row[]>([]);
   const [addressCount, setAddressCount] = useState({ opBNB: 0, Combo: 0, Xterio: 0 });
 
@@ -44,7 +44,7 @@ export default function Hero() {
     fetchAddressCount();
   }, []);
 
-  function getLatestEntry(data: DataItem[]) {
+  function getLatestEntry(data: TvlDataItem[]) {
     const latest_tvl = data.reduce((latest, current) => {
       return current.date > latest.date ? current : latest;
     }, data[0]);
@@ -63,21 +63,9 @@ export default function Hero() {
     }
   }
 
-  const formattedData = tvlData.map((item) => ({
-    date: new Date(item.date * 1000).toLocaleDateString(),
-    tvl: item.tvl,
-  }));
-
   useEffect(() => {
     getLatestEntry(tvlData);
   }, [tvlData]);
-
-  const formatXAxis = (timestamp: string) => {
-    const date = new Date(timestamp).toLocaleDateString();
-    const splitDate = date.split("/");
-    const formatedDate = `${getMonthAbbreviation(parseInt(splitDate[0]))} ${splitDate[2]}`;
-    return formatedDate;
-  };
 
   const formatRow = (row: Row[]) => {
     if (latestTvl) {
@@ -114,7 +102,7 @@ export default function Hero() {
           <h2 className="text-3xl font-semibold">{latestTvl ? latestTvl : "Loading..."}</h2>
         </div>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={formattedData} margin={{ right: 10, left: 10 }}>
+          <AreaChart data={tvlData} margin={{ right: 10, left: 10 }}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />

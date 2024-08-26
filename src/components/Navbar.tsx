@@ -3,11 +3,14 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FeedIcon from "@mui/icons-material/Feed";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import SchoolIcon from "@mui/icons-material/School";
 import WidgetsIcon from "@mui/icons-material/Widgets";
-import { Typography } from "@mui/material";
+import { Collapse, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
@@ -22,11 +25,11 @@ import { CSSObject, styled, Theme } from "@mui/material/styles";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 interface SideNavItem {
   icon: JSX.Element;
   label: string;
-  link: string;
+  link?: string;
+  submenu?: SideNavItem[];
 }
 
 const sideNav: SideNavItem[] = [
@@ -38,7 +41,28 @@ const sideNav: SideNavItem[] = [
   {
     icon: <BarChartIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Statistics",
-    link: "/stats",
+    submenu: [
+      {
+        label: "OpBNB",
+        link: "/stats/opbnb",
+        icon: <Image src="/images/op_bnb.svg" width={30} height={30} alt="opBNB Logo" />,
+      },
+      {
+        label: "Combo",
+        link: "/stats/combo",
+        icon: <Image src="/images/combo.png" width={30} height={30} alt="opBNB Logo" />,
+      },
+      {
+        label: "Xterio",
+        link: "/stats/xterio",
+        icon: <Image src="/images/xterio.png" width={30} height={30} alt="opBNB Logo" />,
+      },
+    ],
+  },
+  {
+    icon: <FeedIcon sx={{ fontSize: "1.8rem" }} />,
+    label: "Realtime Updates",
+    link: "/updates",
   },
   {
     icon: <WidgetsIcon sx={{ fontSize: "1.8rem" }} />,
@@ -100,11 +124,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
 
 export default function PageContainer({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
+  const [statsOpen, setStatsOpen] = useState(true);
 
   const router = useRouter();
 
   const handleDrawer = () => {
     setOpen(!open);
+  };
+
+  const toggleStats = () => {
+    setStatsOpen(!statsOpen);
   };
 
   return (
@@ -125,34 +154,58 @@ export default function PageContainer({ children }: { children: React.ReactNode 
           {open === true ? <ChevronRightIcon sx={{ mr: "auto" }} /> : <MenuIcon sx={{ fontSize: "1.8rem" }} />}
         </IconButton>
         <Divider />
-        <List sx={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <List sx={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
           {sideNav.map((item, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                onClick={() => router.push(item.link)}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+            <div key={index}>
+              <ListItem disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  onClick={item.submenu ? toggleStats : () => router.push(item.link!)}
                   sx={{
-                    mr: open ? 3 : 0,
-                    justifyContent: "center",
-                    color: "#ffffff",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
-                  className="hover:animate-shake duration-1000"
                 >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.label}
-                  sx={{ opacity: open ? 1 : 0 }}
-                  primaryTypographyProps={{ fontWeight: "bold", color: "#ffffff" }}
-                />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      mr: open ? 1 : 0,
+                      justifyContent: "center",
+                      color: "#ffffff",
+                    }}
+                    className="hover:animate-shake duration-1000"
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.label}
+                    sx={{ opacity: open ? 1 : 0 }}
+                    primaryTypographyProps={{ fontWeight: "bold", color: "#ffffff" }}
+                  />
+                  {item.submenu &&
+                    open &&
+                    (statsOpen ? (
+                      <ExpandLessIcon sx={{ fontSize: "1.8rem", color: "#ffffff" }} />
+                    ) : (
+                      <ExpandMoreIcon sx={{ fontSize: "1.8rem", color: "#ffffff" }} />
+                    ))}
+                </ListItemButton>
+              </ListItem>
+              {item.submenu && (
+                <Collapse in={statsOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding sx={{ pl: 4 }}>
+                    {item.submenu.map((subItem, subIndex) => (
+                      <ListItemButton key={subIndex} onClick={() => router.push(subItem.link!)}>
+                        <ListItemIcon sx={{ color: "#ffffff" }}>{subItem.icon}</ListItemIcon>
+                        <ListItemText
+                          primary={subItem.label}
+                          primaryTypographyProps={{ fontWeight: "bold", color: "#ffffff" }}
+                        />
+                      </ListItemButton>
+                    ))}
+                  </List>
+                </Collapse>
+              )}
+            </div>
           ))}
         </List>
       </Drawer>

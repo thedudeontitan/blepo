@@ -23,6 +23,7 @@ export default function OpBnb() {
     }));
     setFormattedData(data);
   }, [statsData]);
+
   const formatNumber = (num: number): string => {
     return numeral(num).format("0.0a");
   };

@@ -64,7 +64,7 @@ export default function Xterio() {
   const Chart = ({ title, data }: { title: string; data: DataItem[] }) => {
     const maxValue = useMemo(() => {
       return Math.max(...data.map((item) => Number(item.value)));
-    }, []);
+    }, [data]);
 
     return (
       <div className="flex flex-col w-full bg-primary p-5 rounded-2xl">

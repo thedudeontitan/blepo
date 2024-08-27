@@ -6,7 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { columns, rows, type Row } from "./colums";
+import { columns, rows, type Row } from "./columns";
 
 export interface TvlDataItem {
   date: number;

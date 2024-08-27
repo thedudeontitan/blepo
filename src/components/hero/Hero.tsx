@@ -4,6 +4,7 @@ import { formatXAxis } from "@/src/utils/XAxisFormater";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Image from "next/image";
+import numeral from "numeral";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { columns, rows, type Row } from "./columns";
@@ -49,19 +50,14 @@ export default function Hero() {
       return current.date > latest.date ? current : latest;
     }, data[0]);
 
-    const formatAsUSD = (value: number): string => {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(value);
-    };
     if (latest_tvl) {
-      const formattedTvl = formatAsUSD(latest_tvl.tvl);
+      const formattedTvl = `$${formatNumber(latest_tvl.tvl)}`;
       setLatestTvl(formattedTvl);
     }
   }
+  const formatNumber = (num: number): string => {
+    return numeral(num).format("0.00a");
+  };
 
   useEffect(() => {
     getLatestEntry(tvlData);
@@ -111,7 +107,7 @@ export default function Hero() {
             </defs>
             <CartesianGrid strokeDasharray="1 3" stroke="#404040" />
             <XAxis dataKey="date" tickFormatter={formatXAxis} fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
-            <YAxis fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
+            <YAxis fontSize="0.7rem" tick={{ fill: "#ffffff" }} tickFormatter={formatNumber} />
             <Tooltip itemStyle={{ color: "#000000" }} />
             <Area type="monotone" dataKey="tvl" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" dot={false} />
           </AreaChart>

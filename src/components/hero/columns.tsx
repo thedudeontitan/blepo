@@ -1,7 +1,10 @@
 "use client";
 
+import { Button } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface Row {
   id: number;
@@ -38,6 +41,25 @@ export const rows: Row[] = [
     type: "Optimistic Rollup",
   },
 ];
+
+const WebsiteButton = ({ stats, website }: { stats: string; website: string }) => {
+  const router = useRouter();
+  return (
+    <div className="inline-flex items-center gap-4">
+      <Button
+        onClick={() => router.push(stats)}
+        className="bg-[#8884d82e] text-[#8884d8] w-fit h-fit truncate px-2 py-1 rounded-md font-medium"
+      >
+        Stats
+      </Button>
+      <Link href={website} target="_blank">
+        <Button className="bg-[#8884d82e] text-[#8884d8] w-fit h-fit truncate px-2 py-1 rounded-md font-medium">
+          website
+        </Button>
+      </Link>
+    </div>
+  );
+};
 
 export const columns: GridColDef[] = [
   {
@@ -81,6 +103,23 @@ export const columns: GridColDef[] = [
           {rowData.type}
         </span>
       );
+    },
+  },
+  {
+    field: "website",
+    headerName: "Website",
+    flex: 1,
+    headerClassName: "header-color",
+    renderCell: (params: { row: Row }) => {
+      const rowData = params.row;
+
+      if (rowData.name === "opBNB") {
+        return <WebsiteButton website="https://opbnb.bnbchain.org/en" stats="/stats/opbnb" />;
+      } else if (rowData.name === "Combo") {
+        return <WebsiteButton website="https://combonetwork.io/" stats="/stats/combo" />;
+      } else if (rowData.name === "Xterio") {
+        return <WebsiteButton website="https://xter.io/" stats="/stats/xterio" />;
+      }
     },
   },
 ];

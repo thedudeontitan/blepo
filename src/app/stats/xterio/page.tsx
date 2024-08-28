@@ -1,9 +1,9 @@
 "use client";
 
 import { KpiCard } from "@/src/components/KpiCard";
+import { formatNumber } from "@/src/utils/FormatNumberMB";
 import { getMonthAbbreviation } from "@/src/utils/MonthFormatter";
 import Image from "next/image";
-import numeral from "numeral";
 import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { ChartDataItem, Counter, DataItem } from "./types";
@@ -11,10 +11,6 @@ import type { ChartDataItem, Counter, DataItem } from "./types";
 export default function Xterio() {
   const [statsData, setStatsData] = useState<Counter[]>([]);
   const [chartData, setChartData] = useState<ChartDataItem>();
-
-  const formatNumber = (num: number): string => {
-    return numeral(num).format("0.00a");
-  };
 
   const formatXAxis = (date: string) => {
     const d = date.split("-");

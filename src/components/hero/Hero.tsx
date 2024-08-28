@@ -1,10 +1,10 @@
 "use client";
 import opBnbLogo from "@/public/images/op_bnb.svg";
+import { formatNumber } from "@/src/utils/FormatNumberMB";
 import { formatXAxis } from "@/src/utils/XAxisFormater";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Image from "next/image";
-import numeral from "numeral";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { columns, rows, type Row } from "./columns";
@@ -55,9 +55,6 @@ export default function Hero() {
       setLatestTvl(formattedTvl);
     }
   }
-  const formatNumber = (num: number): string => {
-    return numeral(num).format("0.00a");
-  };
 
   useEffect(() => {
     getLatestEntry(tvlData);

@@ -2,10 +2,10 @@
 
 import type { TvlDataItem } from "@/src/components/hero/Hero";
 import { KpiCard } from "@/src/components/KpiCard";
+import { formatNumber } from "@/src/utils/FormatNumberMB";
 import { ScientificToInt } from "@/src/utils/ScientificToInt";
 import { formatXAxis } from "@/src/utils/XAxisFormater";
 import Image from "next/image";
-import numeral from "numeral";
 import { useEffect, useMemo, useState } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { KpiData, TransferDayCount } from "../types";
@@ -23,10 +23,6 @@ export default function OpBnb() {
     }));
     setFormattedData(data);
   }, [statsData]);
-
-  const formatNumber = (num: number): string => {
-    return numeral(num).format("0.0a");
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -135,7 +131,7 @@ export default function OpBnb() {
         <div className="flex flex-col w-full bg-primary p-5 rounded-2xl">
           <h2 className="text-white text-xl font-semibold mb-4">Total Value Locked</h2>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={tvlData} margin={{ right: 10, left: 10 }}>
+            <AreaChart data={tvlData}>
               <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -144,7 +140,7 @@ export default function OpBnb() {
               </defs>
               <CartesianGrid strokeDasharray="1 3" stroke="#404040" />
               <XAxis dataKey="date" tickFormatter={formatXAxis} fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
-              <YAxis fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
+              <YAxis tickFormatter={formatNumber} fontSize="0.7rem" tick={{ fill: "#ffffff" }} />
               <Tooltip itemStyle={{ color: "#000000" }} />
               <Area type="monotone" dataKey="tvl" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" dot={false} />
             </AreaChart>

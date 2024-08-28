@@ -187,7 +187,7 @@ export default function Compare() {
           overview of three prominent L2 solutions: opBNB, COMBO, and Xterio, to help developers make informed decisions
           based on their specific needs and target audiences.
         </p>
-        <TableContainer component={Paper} sx={{ background: "#141414" }}>
+        <TableContainer component={Paper} sx={{ background: "#141414", borderRadius: "10px" }}>
           <Table sx={{ minWidth: 650, display: "flex", flexDirection: "column" }}>
             <TableHead>
               <TableRow sx={{ display: "flex", flexDirection: "row" }}>

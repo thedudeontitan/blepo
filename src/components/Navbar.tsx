@@ -77,7 +77,7 @@ const sideNav: SideNavItem[] = [
   {
     icon: <SchoolIcon sx={{ fontSize: "1.8rem" }} />,
     label: "Learn",
-    link: "/learn",
+    link: "/docs",
   },
 ];
 

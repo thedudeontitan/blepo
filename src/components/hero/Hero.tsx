@@ -85,7 +85,7 @@ export default function Hero() {
   }, [addressCount, latestTvl]);
   return (
     <div className="">
-      <h1 className="text-4xl font-semibold mb-4 text-white ml-4">Overview</h1>
+      <h1 className="text-3xl font-semibold mb-4 text-white ml-4">Overview</h1>
       <div className="w-full h-[50vh] mx-auto p-5 bg-primary rounded-2xl flex flex-col lg:flex-row gap-2">
         <div className=" flex lg:flex-col gap-5 text-xl text-white mb-5 lg:w-1/5 lg:pt-5">
           <div className="inline-flex gap-2">

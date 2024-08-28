@@ -13,8 +13,9 @@ export async function GET() {
 
     const txnList = txnListData.data.list;
     const blockList = blockListData.data.list;
+    const txnCount = txnListData.data.total_number;
 
-    return NextResponse.json({ txnList, blockList });
+    return NextResponse.json({ txnList, blockList, txnCount });
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }

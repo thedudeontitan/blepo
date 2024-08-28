@@ -5,10 +5,10 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FeedIcon from "@mui/icons-material/Feed";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import SchoolIcon from "@mui/icons-material/School";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Collapse, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -60,8 +60,8 @@ const sideNav: SideNavItem[] = [
     ],
   },
   {
-    icon: <FeedIcon sx={{ fontSize: "1.8rem" }} />,
-    label: "Realtime Updates",
+    icon: <TrendingUpIcon sx={{ fontSize: "1.8rem" }} />,
+    label: "Live Updates",
     link: "/updates",
   },
   {

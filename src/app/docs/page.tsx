@@ -6,16 +6,16 @@ export default function Docs() {
         <p className="mb-4 text-gray-100">
           Blockchain technology relies on various metrics to measure performance, efficiency, and user engagement.
           Understanding these metrics helps in evaluating the health and scalability of a blockchain network. In this
-          blog post, we'll dive into some key blockchain metrics and their significance.
+          blog post, we&apos;ll dive into some key blockchain metrics and their significance.
         </p>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-2">Daily Transaction Count</h2>
           <p className="text-gray-100">
             The daily transaction count represents the total number of transactions that are processed by the blockchain
-            network within a 24-hour period. This metric is crucial for understanding the network's usage and load. A
-            high transaction count suggests high user activity and adoption, whereas a lower count might indicate lower
-            engagement or usage.
+            network within a 24-hour period. This metric is crucial for understanding the network&apos;s usage and load.
+            A high transaction count suggests high user activity and adoption, whereas a lower count might indicate
+            lower engagement or usage.
           </p>
           <p className="text-gray-100">
             Tracking the daily transaction count over time can also help identify trends, such as growth in network
@@ -29,11 +29,11 @@ export default function Docs() {
           <p className="text-gray-100">
             The block count is the total number of blocks that have been added to the blockchain since its inception.
             Each block contains a collection of transactions and serves as a record of those transactions. The block
-            count provides insights into the blockchain's age, growth, and history.
+            count provides insights into the blockchain&apos;s age, growth, and history.
           </p>
           <p className="text-gray-100">
             An increasing block count signifies ongoing network activity and transaction processing. It also impacts the
-            blockchain’s data storage requirements and may influence the network's performance and scalability.
+            blockchain’s data storage requirements and may influence the network&apos;s performance and scalability.
           </p>
         </section>
 
@@ -46,7 +46,7 @@ export default function Docs() {
           </p>
           <p className="text-gray-100">
             Variations in average block time can occur due to network congestion, changes in block size, or algorithm
-            adjustments. It's a key factor in evaluating the blockchain's efficiency and responsiveness.
+            adjustments. It&apos;s a key factor in evaluating the blockchain&apos;s efficiency and responsiveness.
           </p>
         </section>
 
@@ -72,7 +72,8 @@ export default function Docs() {
           </p>
           <p className="text-gray-100">
             A higher number of active accounts suggests a growing and active user community, which can drive network
-            activity and transaction volume. It is a key indicator of the blockchain's popularity and user engagement.
+            activity and transaction volume. It is a key indicator of the blockchain&apos;s popularity and user
+            engagement.
           </p>
         </section>
 

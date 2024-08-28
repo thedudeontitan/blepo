@@ -115,7 +115,7 @@ export default function Updates() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col gap-4">
+    <div className="min-h-screen flex flex-col gap-4 pb-20">
       <h1 className="text-3xl font-semibold text-white">Live Updates</h1>
       <div className="flex flex-col w-full gap-4">
         <div className="inline-flex gap-4 items-center">

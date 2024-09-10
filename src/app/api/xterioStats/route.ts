@@ -4,7 +4,7 @@ export async function GET() {
   const apiUrl = `${process.env.XTERIO_EXPLORER_URL}/v1/counters`;
 
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { next: { revalidate: 86400 } });
     const data = await response.json();
     return NextResponse.json({ data });
   } catch (error) {

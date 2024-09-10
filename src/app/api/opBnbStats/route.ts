@@ -4,7 +4,7 @@ export async function GET() {
   const apiUrl = `${process.env.OPBNB_EXPLORER_URL}/statistics/getStatisticsData`;
 
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(apiUrl, { next: { revalidate: 86400 } });
     const data = await response.json();
     const transferDayCount = data.data.transferDayCount;
     return NextResponse.json({ transferDayCount });

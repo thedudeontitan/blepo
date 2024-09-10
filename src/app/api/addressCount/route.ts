@@ -7,6 +7,7 @@ export async function GET() {
 
   try {
     const opBnbResponse = await fetch(opBnbUrl, {
+      next: { revalidate: 86400 },
       method: "POST",
       body: JSON.stringify({
         id: 1,

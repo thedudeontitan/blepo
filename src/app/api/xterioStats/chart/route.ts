@@ -10,13 +10,13 @@ export async function GET() {
   const totalTxn = `${process.env.XTERIO_EXPLORER_URL}/v1/lines/txnsGrowth`;
 
   try {
-    const dailyNewTxnResponse = await fetch(dailyNewTxn);
-    const activeAccountsResponse = await fetch(activeAccounts);
-    const averageBlockSizeResponse = await fetch(averageBlockSize);
-    const averageGasPriceResponse = await fetch(averageGasPrice);
-    const dailyDeployedContractsResponse = await fetch(dailyDeployedContracts);
-    const accoutCountResponse = await fetch(accountCount);
-    const totalTxnResponse = await fetch(totalTxn);
+    const dailyNewTxnResponse = await fetch(dailyNewTxn, { next: { revalidate: 86400 } });
+    const activeAccountsResponse = await fetch(activeAccounts, { next: { revalidate: 86400 } });
+    const averageBlockSizeResponse = await fetch(averageBlockSize, { next: { revalidate: 86400 } });
+    const averageGasPriceResponse = await fetch(averageGasPrice, { next: { revalidate: 86400 } });
+    const dailyDeployedContractsResponse = await fetch(dailyDeployedContracts, { next: { revalidate: 86400 } });
+    const accoutCountResponse = await fetch(accountCount, { next: { revalidate: 86400 } });
+    const totalTxnResponse = await fetch(totalTxn, { next: { revalidate: 86400 } });
 
     const dailyNewTxnData = await dailyNewTxnResponse.json();
     const activeAccountsData = await activeAccountsResponse.json();

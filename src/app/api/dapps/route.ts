@@ -7,8 +7,8 @@ export async function GET() {
   const xterio = `${process.env.XTERIO_DAPP_URL}`;
 
   try {
-    const opBnbResponse = await fetch(opBnb);
-    const xterioResponse = await fetch(xterio);
+    const opBnbResponse = await fetch(opBnb, { next: { revalidate: 86400 } });
+    const xterioResponse = await fetch(xterio, { next: { revalidate: 86400 } });
     const opBnbData = await opBnbResponse.json();
     const xterioData = await xterioResponse.json();
 
